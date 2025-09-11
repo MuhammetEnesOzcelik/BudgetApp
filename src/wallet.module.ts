@@ -5,9 +5,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Wallet, WalletSchema } from './schema/wallet.schema';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Wallet.name, schema: WalletSchema }])],
-    controllers: [WalletController],
-    providers: [WalletService],
-    exports: [WalletService],
+  imports: [
+    MongooseModule.forFeature([{ name: Wallet.name, schema: WalletSchema }]),
+  ],
+  controllers: [WalletController],
+  providers: [WalletService],
+  exports: [WalletService],
 })
-export class WalletModule { }
+export class WalletModule {}

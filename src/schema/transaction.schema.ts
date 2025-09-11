@@ -7,23 +7,23 @@ export type TransactionDocument = HydratedDocument<Transaction>;
 
 @Schema()
 export class Transaction {
-    @Prop({ required: true })
-    walletId: string;
+  @Prop({ required: true })
+  walletId: string;
 
-    @Prop()
-    walletName?: string;
+  @Prop()
+  walletName?: string;
 
-    @Prop({ required: true })
-    amount: number;
+  @Prop({ required: true })
+  amount: number;
 
-    @Prop({ required: true, enum: TransactionType })
-    type: TransactionType;
+  @Prop({ required: true, enum: TransactionType })
+  type: TransactionType;
 
-    @Prop({ required: true, enum: Currency, default: Currency.TRY })
-    walletCurrency: Currency;
+  @Prop({ required: true, enum: Currency, default: Currency.TRY })
+  walletCurrency: Currency;
 
-    @Prop()
-    description?: string;
+  @Prop()
+  description?: string;
 }
 
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);
