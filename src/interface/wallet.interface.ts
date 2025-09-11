@@ -1,4 +1,4 @@
 export interface Wallet {
-    name: string;
-    balance: number;
+    walletName: string;
+    walletBalance: number;
 }

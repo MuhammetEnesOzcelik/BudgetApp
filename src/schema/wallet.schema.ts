@@ -5,11 +5,17 @@ export type WalletDocument = HydratedDocument<Wallet>;
 
 @Schema()
 export class Wallet {
-    @Prop()
-    name: string;
+    @Prop({ required: true })
+    walletId: string;
 
-    @Prop()
-    balance: number;
+    @Prop({ required: true })
+    walletName: string;
+
+    @Prop({ required: true, default: 0 })
+    walletBalance: number;
+
+    @Prop({ required: true, default: '₺' })
+    walletCurrency: string;
 }
 
 export const WalletSchema = SchemaFactory.createForClass(Wallet);

@@ -21,6 +21,10 @@ export class WalletService {
         return this.walletModel.findById(id).exec();
     }
 
+    async findByName(name: string): Promise<Wallet | null> {
+        return this.walletModel.findOne({ name }).exec();
+    }
+
     async update(
         id: string,
         updateWallet: Partial<UpdateWalletDto>,
@@ -29,6 +33,16 @@ export class WalletService {
             .findByIdAndUpdate(id, updateWallet, { new: true })
             .exec();
         return updatedWallet;
+    }
+
+    async updateBalance(
+        id: string,
+        amount: number) {
+        return this.walletModel.findByIdAndUpdate(
+            id,
+            { $inc: { balance: amount } },
+            { new: true }
+        );
     }
 
     async remove(id: string): Promise<Wallet | null> {
