@@ -1,14 +1,24 @@
-import { IsString, IsNumber, IsEmpty, IsEnum } from 'class-validator';
-import { TransactionType } from 'src/enum/transaction_type.enum';
+import { IsString, IsNumber, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
+import { TransactionType } from 'src/enum/transaction.enum';
+import { Transform } from 'class-transformer';
 
 export class TransactionDto {
-    @IsEmpty()
+    @IsNotEmpty()
     @IsString()
     walletId: string;
+
+    @IsString()
+    @IsOptional()
+    walletName?: string;
 
     @IsNumber()
     amount: number;
 
+    @IsString()
+    @IsOptional()
+    description?: string;
+
+    @Transform(({ value }) => value.toLowerCase())
     @IsEnum(TransactionType)
     type: TransactionType;
 }

@@ -12,4 +12,12 @@ export class TransactionService {
         const createdTransaction = new this.transactionModel(createTransaction);
         return createdTransaction.save();
     }
+
+    async findAll(): Promise<Transaction[]> {
+        return this.transactionModel.find().exec();
+    }
+
+    async findById(id: string): Promise<Transaction | null> {
+        return this.transactionModel.findById(id).exec();
+    }
 }

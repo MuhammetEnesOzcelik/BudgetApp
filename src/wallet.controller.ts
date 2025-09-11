@@ -9,7 +9,6 @@ export class WalletController {
 
     @Post()
     async create(@Body() createWallet: CreateWalletDto): Promise<Wallet> {
-        console.log('Create Wallet =>', createWallet);
         return this.walletService.create(createWallet);
     }
 

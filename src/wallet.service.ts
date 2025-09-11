@@ -38,11 +38,7 @@ export class WalletService {
     async updateBalance(
         id: string,
         amount: number) {
-        return this.walletModel.findByIdAndUpdate(
-            id,
-            { $inc: { balance: amount } },
-            { new: true }
-        );
+        return this.walletModel.findByIdAndUpdate(id, { $inc: { walletBalance: amount } }, { new: true }).exec();
     }
 
     async remove(id: string): Promise<Wallet | null> {
