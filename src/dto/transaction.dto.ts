@@ -18,7 +18,7 @@ export class TransactionDto {
     @IsOptional()
     description?: string;
 
-    @Transform(({ value }) => value.toLowerCase())
+    @Transform(({ value }) => value.toUpperCase())
     @IsEnum(TransactionType)
     type: TransactionType;
 }
