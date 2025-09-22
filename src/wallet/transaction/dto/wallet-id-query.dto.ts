@@ -1,4 +1,4 @@
-import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsMongoId, IsNotEmpty } from '@nestjs/class-validator';
 
 export class WalletIdQueryDto {
   @IsMongoId()
