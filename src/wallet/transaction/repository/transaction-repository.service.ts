@@ -24,14 +24,23 @@ export class TransactionRepositoryService {
     return Transaction.toModel(transaction);
   }
 
-  async findAll(): Promise<TransactionModel[]> {
-    const docs = await this.transactionEntity.find().exec();
+  async findAll(walletId: string): Promise<TransactionModel[]> {
+    const Id = new Types.ObjectId(walletId);
+    const docs = await this.transactionEntity.find({ walletId: Id }).exec();
 
     return docs.map((doc) => Transaction.toModel(doc));
   }
 
-  async findById(id: Types.ObjectId): Promise<TransactionModel | null> {
-    const doc = await this.transactionEntity.findById(id).exec();
+  async findById(
+    walletObjId: Types.ObjectId,
+    transactionId: Types.ObjectId,
+  ): Promise<TransactionModel | null> {
+    const doc = await this.transactionEntity
+      .findOne({
+        _id: transactionId,
+        walletId: walletObjId,
+      })
+      .exec();
 
     return doc ? Transaction.toModel(doc) : null;
   }

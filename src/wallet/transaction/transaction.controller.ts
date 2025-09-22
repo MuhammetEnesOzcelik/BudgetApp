@@ -1,11 +1,11 @@
-import { Controller, Post, Param, Body } from '@nestjs/common';
+import { Controller, Post, Param, Body, Get } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/transaction.dto';
 import { TransactionModel } from './model/transaction.model';
 import { TransactionType } from './enum/transaction.enum';
 import { WalletService } from 'src/wallet/wallet.service';
-import { WalletIdQueryDto } from './dto/wallet-id-query.dto';
+import { TransactionParamsDto } from './dto/transaction-param.dto';
 
 @Controller('wallets')
 export class TransactionController {
@@ -26,7 +26,7 @@ export class TransactionController {
     description: 'The transaction for the wallet has been created.',
   })
   async createTransaction(
-    @Param() { walletId }: WalletIdQueryDto,
+    @Param() { walletId }: TransactionParamsDto,
     @Body() dto: CreateTransactionDto,
   ): Promise<TransactionModel> {
     const createModel = CreateTransactionDto.toModel(dto, walletId);
@@ -43,18 +43,30 @@ export class TransactionController {
     return transaction;
   }
 
-  /*@Get()
+  @Get(':walletId/transactions')
   @ApiOperation({ summary: 'Get all transactions.' })
+  @ApiParam({
+    name: 'walletId',
+    type: String,
+    description: 'The ID of the wallet to receive transactions.',
+  })
   @ApiResponse({
     status: 200,
     description: 'All transactions have been succesfully retrieved.',
   })
-  async getTransaction(@Param('id') id: string): Promise<TransactionModel[]> {
-    return this.transactionService.getTransaction(id);
+  async getTransaction(
+    @Param() { walletId }: TransactionParamsDto,
+  ): Promise<TransactionModel[]> {
+    return this.transactionService.getTransaction(walletId);
   }
 
-  @Get(':id')
+  @Get(':walletId/transactions/:id')
   @ApiOperation({ summary: 'Get transaction by ID.' })
+  @ApiParam({
+    name: 'walletId',
+    type: String,
+    description: 'The ID of the wallet to get transaction.',
+  })
   @ApiParam({
     name: 'id',
     type: String,
@@ -65,8 +77,11 @@ export class TransactionController {
     description: 'The transaction has been succesfully retrieved.',
   })
   async getTransactionById(
-    @Param('id') id: string,
+    @Param() params: TransactionParamsDto,
   ): Promise<TransactionModel | null> {
-    return this.transactionService.getTransactionById(id);
-  }*/
+    return this.transactionService.getTransactionById(
+      params.walletId,
+      params.id,
+    );
+  }
 }

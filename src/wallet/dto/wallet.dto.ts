@@ -1,13 +1,8 @@
 import { CreateWalletModel } from '../model/crud/create-wallet.model';
 import { Currency } from 'src/wallet/enum/currency.enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from '@nestjs/class-transformer';
-import {
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from '@nestjs/class-validator';
+import { Transform } from 'class-transformer';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateWalletDto {
   @IsOptional()

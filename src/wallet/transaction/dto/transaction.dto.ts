@@ -1,8 +1,8 @@
-import { IsEnum, IsNumber } from '@nestjs/class-validator';
+import { IsEnum, IsNumber } from 'class-validator';
 import { CreateTransactionModel } from '../model/crud/create-transaction.model';
 import { ApiProperty } from '@nestjs/swagger';
 import { TransactionType } from '../enum/transaction.enum';
-import { Transform } from '@nestjs/class-transformer';
+import { Transform } from 'class-transformer';
 import { Types } from 'mongoose';
 
 export class CreateTransactionDto {
