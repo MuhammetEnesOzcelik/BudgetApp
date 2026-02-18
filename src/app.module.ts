@@ -1,25 +1,24 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { TransactionModule } from './wallet/transaction/transaction.module';
-import { WalletModule } from './wallet/wallet.module';
+import configuration from './config/configuration';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { DomainModule } from './domain/domain.module';
+import { MongoModule } from './service/mongodb/mongo.module';
 
 @Module({
   imports: [
-    WalletModule,
-    TransactionModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [configuration],
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-      }),
+    EventEmitterModule.forRoot({
+      wildcard: true,
+      delimiter: '.',
     }),
+    MongoModule,
+    DomainModule,
   ],
   controllers: [AppController],
   providers: [AppService],

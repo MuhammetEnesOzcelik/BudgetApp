@@ -1,0 +1,7 @@
+{
+  "material-icon-theme.activeIconPack": "nest",
+  "editor.codeActionsOnSave": {
+    "source.removeUnusedImports": "explicit"
+    // "source.sortImports": "explicit"
+  }
+}
